@@ -1,71 +1,68 @@
 
-## About next-code-format
-- そもそもなぜESLint、Prettierによるコードの解析・整形が必要なのか？
-  - コードの品質向上
-  - 一貫性の確保
-  - バグの早期発見
-  - 作業効率の向上
-  - チームでの開発が容易になる
+## About next-github-actions
+- GitHub Actions
+  - GitHubが提供する自動化およびワークフローのための機能
+  - リポジトリ内のイベントに基づいて、カスタムのワークフローをトリガーし、実行可能
 
-- コードフォーマットが発火するまでの流れ
-  - コミット
-  - huskyのpre-commitファイル → npx lint-staged が発火
-  - .lintstagedrc.js が実行される
-  - ESLint、Prettierが実行される(ステージングされたファイルのみ)
+- CI Continuous Integration
+  - 継続的インテグレーション 
+  - コードの変更が発生するたびに自動的にビルド、テスト、および検証を行う。
 
-- EsLint https://eslint.org/
-  - コードの品質を保つための静的解析ツール
-  - 静的解析 ... コードを実行せずにその構文やスタイルを分析するプロセスのこと
-  - コードフォーマットに関するルールも含まれている(eslint-config-prettierでオフにする)
-  - 設定ファイルは、JavaScript, YAML, JSON, package.jsonのeslintConfigプロパティという選択肢があるが、.eslintrc.jsで記述(コメントの記入が可能、共通変数の定義、関数かも可能。推奨)
+- CD
+ - 継続的デリバリー Continuous Delivery
+ - または、継続的デプロイメント Continuous Deployment
+ - 迅速・安全に、信頼性の高い方法でリリースできるようにするアプローチ。
+ - 開発チームは、コードを自動化されたビルド、テスト、およびデプロイのパイプラインを通じて継続的にリリース可能な状態に保つことが可能
 
-- Prettier https://prettier.io/
-  - コードの自動整形ツール
-  - コードの静的解析や品質チェックする機能はない
-  - コードの整形を行い一貫性を保つことに特化している
-  - 設定ファイルは、prettier.config.js。(推奨)
+- ワークフロー (Workflow):
+  - GitHub Actionsで実行される一連の手順やジョブのセット。
+  - yamlファイルなどで定義され、リポジトリ内の特定のイベント（プッシュ、プルリクエスト、イシューなど）に対してトリガーされる。
 
+- ジョブ (Job):
+  - ワークフロー内の個々のタスクのこと。
+  - 通常、ワークフローには複数のジョブが含まれる。ジョブは、同時にまたは順次実行される。
 
-- Husky
-  - Gitフックを管理するためのツール
-  - 特定のGit操作（コミット、プッシュ、マージなど）の前後に実行されるカスタムスクリプト
-  - 例 ステージにだけaddしているファイルにのみコードフォーマットを行う
-  - v8とv9ではコマンドが違うので注意
-   - npx husky install と打つと "install  command is deprecated" とエラーが吐かれる → npx husky init に変更などしている。
+- ステップ (Step):
+  - ジョブ内の個々のタスクまたはコマンドを表す
+  - コードのチェックアウト、ビルド、テスト、デプロイなどのアクションを実行する。
 
-- package.json scriptのprepareについて
-  - npmインストールする前に実行される特殊なフィールドらしい
-  - 準備スクリプトを実行して、必要なファイルを生成、コンパイルを実行したりすることができる。開発時に必要な前処理を自動化するのに役立つ。
-  - https://docs.npmjs.com/cli/v9/using-npm/scripts#life-cycle-scripts
+- アクション (Action):
+  - 再利用可能な自動化のユニット。
+  - コードのチェックアウト、テストの実行、デプロイのトリガーなどのさまざまなタスクを実行する。
 
-- .husky/pre-commit ファイル
-  - Gitフックの1つであり、Git コミットが実行される前に実行されるスクリプトを定義
+- トリガー (Trigger):
+  - ワークフローを実行する条件やイベント。
+  - リポジトリに対するプッシュ、プルリクエストの作成、スケジュールなど
 
-- パッケージ
-  - eslint-config-prettier
-    ESlintとPrettierを組み合わせた場合一部の整形ルールが競合することがあるので、Prettierと競合するESLintルールを無効化する。
-    例えば、スペースの数やセミコロンの有無などが異なる場合など。
-    これによりESLintがコードの品質を解析して、Prettierがコードを整形するという使い方が可能になり両者を共存させることができる。
-  
-- 推奨パッケージ 
-  - eslint-plugin-import → import、exportの並び替え
+- ワークフローのトリガー (Workflow Trigger):
+  - ワークフローを起動するイベントや条件を定義。
 
-- VSCodeの拡張機能
-  - prettier-plugin-tailwindcss
-    推奨されるクラス順に並び替えてくれる
+## 用語
+- runs-on: ubuntu-latest
+  - GitHub Actionsでのワークフローが実行される環境を指す
+  - GitHub Actionsのランナーが最新のUbuntu環境でジョブを実行することになる
+  - runs-on
+    - Windows、macOSなども指定可能
+    - なぜUbuntuか？
+      - 多くの開発者やプロジェクトがUbuntuを使用していて、安全性が高くパフォーマンスがいいため
+      - 豊富なドキュメントあるため
+
+## 公式ドキュメント
+- アイデアからリリースまでのワークフローを自動化
+  https://github.co.jp/features/actions
+
+- 「GitHub Actionsを理解する」
+   https://docs.github.com/ja/actions/learn-github-actions/understanding-github-actions
+
+- 「GitHub Actions ドキュメント」
+   https://docs.github.com/ja/actions
 
 ## References Articles
+- 「GitHub Actionsを使用してNext.jsをGitHub Pagesにデプロイする方法」
+https://musclecoding.com/nextjs-github-pages-actions/
 
-- [2023年]Next.js + eslint周りの設定
-  https://zenn.dev/resistance_gowy/articles/91b4f62b9f48ec#commit%E6%99%82%E3%81%AB%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AE%E6%A4%9C%E8%A8%BC%E3%82%92%E3%81%99%E3%82%8B
-  
-- 【2024/01最新】husky + lint-staged でコミット前にlintを強制する方法
-  https://zenn.dev/risu729/articles/latest-husky-lint-staged
+- 「Next.js製のAPPにGitHub Actionsを使用してCIの仕組みを構築してみた」
+https://zenn.dev/bloomer/articles/c48eff0e4b2b10
 
-- ESLint を使い倒す（おすすめルール紹介）
-  https://zenn.dev/noshiro_piko/articles/take-full-advantage-of-typescript-eslint
-  
-- その他の参考記事
-https://typicode.github.io/husky/get-started.html#install
-
+- 
 
