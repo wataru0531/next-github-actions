@@ -1,7 +1,9 @@
+
+
 /** @type {import('next').NextConfig} */
+
 const nextConfig = {
-  output: 'export', // 静的エクスポートを有効にする
-  distDir: 'dist',
+	output: 'export', // 静的エクスポートを有効にする
 };
 
-export default nextConfig;
+module.exports = nextConfig;
