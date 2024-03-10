@@ -27,9 +27,9 @@ concurrency:
 # ジョブの定義
 jobs:
   build: # build というジョブIDでジョブを定義
-    name: My first jobs
-    runs-on: ubuntu-latest # ジョブの実行を行うOSの指定
-    steps:
+    name: My first jobs # ジョブの名前を定義
+      runs-on: ubuntu-latest # ジョブの実行を行うOSの指定
+      steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Detect package manager
