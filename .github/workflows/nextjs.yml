@@ -1,18 +1,18 @@
-# Sample workflow for building and deploying a Next.js site to GitHub Pages
-#
-# To get started with Next.js see: https://nextjs.org/docs/getting-started
-#
+
+# Job > Step > コマンドなどの処理の流れ
+
 name: Deploy Next.js site to Pages
 
 on:
-  # Runs on pushes targeting the default branch
+  # トリガーになる GitHubのイベント
   push:
     branches: ["main"]
 
-  # Allows you to run this workflow manually from the Actions tab
+  # 無くてもいい(手動で実行したい人だけ残す)
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+# GitHub Actionの権限設定
+# → ESLintで指摘項目があった際にPull Requestのコメントに内容を送信してもらうため
 permissions:
   contents: read
   pages: write
@@ -24,10 +24,11 @@ concurrency:
   group: "pages"
   cancel-in-progress: false
 
+# ジョブの定義
 jobs:
-  # Build job
-  build:
-    runs-on: ubuntu-latest
+  build: # build というジョブIDでジョブを定義
+    name: My first jobs
+    runs-on: ubuntu-latest # ジョブの実行を行うOSの指定
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -51,7 +52,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "20" # 利用したいNode.jsバージョンを指定
           cache: ${{ steps.detect-package-manager.outputs.manager }}
       - name: Setup Pages
         uses: actions/configure-pages@v4

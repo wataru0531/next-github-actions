@@ -64,5 +64,10 @@ https://musclecoding.com/nextjs-github-pages-actions/
 - 「Next.js製のAPPにGitHub Actionsを使用してCIの仕組みを構築してみた」
 https://zenn.dev/bloomer/articles/c48eff0e4b2b10
 
-- 
+- 「【初心者向け】【入門】GitHub Actionsの書き方についてデバッグ設定、runs-onやcheckoutなどの仕組みや構造も含めて徹底解説」
+https://qiita.com/shun198/items/14cdba2d8e58ab96cf95
+
+- 「TypeScript(Next.js)のCIをGitHub Actionsで構築してみる！」
+https://qiita.com/Senritsu420/items/f51a7eff81a8c1372302
+
 
