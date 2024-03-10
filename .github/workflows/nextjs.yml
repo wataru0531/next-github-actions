@@ -24,7 +24,8 @@ concurrency:
   group: "pages"
   cancel-in-progress: false
 
-# ジョブの定義
+# ジョブの定義 
+# ジョブは並列で実行されるが、依存関係や並行実行の制限にり、実際の実行順序や並列度が制御される。
 jobs:
   build: # build というジョブIDでジョブを定義
     name: My first build # ジョブの名前を定義
@@ -85,6 +86,7 @@ jobs:
 
   # Deployment job
   deploy:
+    name: My first deploy
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
