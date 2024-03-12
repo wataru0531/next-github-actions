@@ -56,6 +56,9 @@
 
 - 「GitHub Actions ドキュメント」
    https://docs.github.com/ja/actions
+  
+- 「ワークフローをトリガーするイベント」
+  https://docs.github.com/ja/actions/using-workflows/events-that-trigger-workflows#available-events
 
 ## References Articles
 - 「GitHub Actionsを使用してNext.jsをGitHub Pagesにデプロイする方法」

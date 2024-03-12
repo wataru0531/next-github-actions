@@ -1,15 +1,15 @@
 
-# Job > Step > コマンドなどの処理の流れ
+# jobs > Job >　steps > step > コマンドなどの処理の流れ
 
 name: Deploy Next.js site to Pages
 
-on:
-  # トリガーになる GitHubのイベント
+# トリガーになる GitHubのイベント
+# push、pull_request、deployment、release、issues、schedule など
+on: 
   push:
     branches: ["main"]
 
-  # 無くてもいい(手動で実行したい人だけ残す)
-  workflow_dispatch:
+  workflow_dispatch: # 無くてもいい(手動で実行したい人だけ残す)
 
 # GitHub Actionの権限設定
 # → ESLintで指摘項目があった際にPull Requestのコメントに内容を送信してもらうため
@@ -18,21 +18,18 @@ permissions:
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
 # ジョブの定義 
-# ジョブは並列で実行されるが、依存関係や並行実行の制限にり、実際の実行順序や並列度が制御される。
 jobs:
   build: # build というジョブIDでジョブを定義
     name: My first build # ジョブの名前を定義
     runs-on: ubuntu-latest # ジョブの実行を行うOSの指定
-    steps:
+    steps: # ここからstepを複数記述していき処理を実行していく。stepは直列で実行(デフォルト)
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4 # 第三者もしくはGitHubが作成したActionsをyml内に記載することで実行。リポジトリをチェックアウトするために使用
       - name: Detect package manager
         id: detect-package-manager
         run: |
@@ -58,19 +55,13 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v4
         with:
-          # Automatically inject basePath in your Next.js configuration file and disable
-          # server side image optimization (https://nextjs.org/docs/api-reference/next/image#unoptimized).
-          #
-          # You may remove this line if you want to manage the configuration yourself.
           static_site_generator: next
       - name: Restore cache
         uses: actions/cache@v4
         with:
           path: |
             .next/cache
-          # Generate a new cache whenever packages or source files change.
           key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
-          # If source files changed but packages didn't, rebuild from a prior cache.
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
       - name: Install dependencies
